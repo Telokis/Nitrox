@@ -6,9 +6,11 @@ if [ -f "$dir/config.sh" ]; then
 	source "$dir/config.sh";
 fi
 
-STEAM_DIR=${STEAM_DIR:-"/home/deck/.local/share/Steam"}
+STEAM_DIR=${STEAM_DIR:-"$HOME/.local/share/Steam"}
 NITROX_VERSION=${NITROX_VERSION:-"latest"}
 
+GITHUB_PACKAGE="Telokis/Nitrox"
+MATCH="Nitrox"
 SUBNAUTICA_ID="264710"
 STEAM_PREFIX="$STEAM_DIR/steamapps/compatdata/$SUBNAUTICA_ID/pfx"
 NITROX_DIR="$STEAM_PREFIX/drive_c/Nitrox"
@@ -34,9 +36,7 @@ nitrox_dl_url() {
 	version="$1"
 
 	## get release info and download links
-	GITHUB_PACKAGE="Telokis/Nitrox"
 	VERSION=${NITROX_VERSION}
-	MATCH="Nitrox"
 
 	LATEST_JSON=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases/latest")
 	RELEASES=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases")
@@ -60,10 +60,10 @@ nitrox_dl_url() {
 # download and unzip Nitrox
 check_nitrox() {
     printf "2) checking nitrox..."
-    if [ -d "$NITROX_DIR" ]; then
-        printf " \x1b[32minstalled\x1b[0m\n"
-        return 0
-    fi
+		if [[ -d "$NITROX_DIR" ]] && [[ "$FORCE" != "1" && "$FORCE" != "true" ]]; then
+			printf " \x1b[32minstalled\x1b[0m\n"
+			return 0
+		fi
     printf " \x1b[31mnot found\x1b[0m\n"
 
 	version="$1"
@@ -173,7 +173,7 @@ setup() {
 		printf "  \x1b[34mg)\x1b[0m click on 'Properties'\n"
 		printf "  \x1b[34mh)\x1b[0m open the 'Compatibility' tab\n"
 		printf "  \x1b[34mi)\x1b[0m enable 'Force the use of specific Steam Play compatibility tool'\n"
-		printf "  \x1b[34mj)\x1b[0m on the dropdown menu, select 'Proton 8.0' or the latest version\n"
+		printf "  \x1b[34mj)\x1b[0m on the dropdown menu, select 'Proton 9.0' or the latest version\n"
 		printf "  \x1b[34mk)\x1b[0m close the settings window\n\n"
 
 		printf "  Yay ! NitroxLauncher should be configured now ; you should be able to launch it from Steam\n"
@@ -237,7 +237,9 @@ patch() {
 	exit 0
 }
 
-echo "- Nitrox setup script modified by Telokis -"
+echo "- Nitrox setup script for Linux -"
+echo "- Modified by Telokis -"
+echo "- Original by xdrm-io -"
 
 if [ "$1" = "patch" ]; then
 	patch

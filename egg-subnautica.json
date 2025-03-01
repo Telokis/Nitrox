@@ -2,20 +2,20 @@
     "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
     "meta": {
         "version": "PTDL_v2",
-        "update_url": null
+        "update_url": "https://raw.githubusercontent.com/Telokis/Nitrox/refs/heads/master/egg-subnautica.json"
     },
     "exported_at": "2025-03-01T18:43:23+01:00",
-    "name": "Subnautica",
-    "author": "tueye@tuworld.de",
-    "description": "[Modified by Telokis]\r\n\r\nSubnautica is an open world survival action-adventure video game developed and published by Unknown Worlds Entertainment. In it, players are free to explore the ocean on an alien planet, known as planet 4546B, after their spaceship, the Aurora, crashes on the planet's surface.\r\n\r\n",
+    "name": "Subnautica - Telo Bundle",
+    "author": "telokis0@gmail.com",
+    "description": "[Original egg by tueye@tuworld.de]\r\n\r\nSubnautica is an open world survival action-adventure video game developed and published by Unknown Worlds Entertainment. In it, players are free to explore the ocean on an alien planet, known as planet 4546B, after their spaceship, the Aurora, crashes on the planet's surface.\r\n\r\n",
     "features": [
         "steam_disk_space"
     ],
     "docker_images": {
-        "ghcr.io\/parkervcp\/yolks:mono_latest": "ghcr.io\/parkervcp\/yolks:mono_latest"
+        "ghcr.io\/parkervcp\/yolks:dotnet_9": "ghcr.io\/parkervcp\/yolks:dotnet_9"
     },
     "file_denylist": [],
-    "startup": "mono .\/nitrox\/NitroxServer-Subnautica.exe",
+    "startup": "dotnet .\/nitrox\/NitroxServer-Subnautica.dll",
     "config": {
         "files": "{\r\n    \"server.cfg\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"ServerPort\": \"{{server.build.default.port}}\",\r\n            \"SaveInterval\": \"{{server.build.env.SAVE_INTERVAL}}\",\r\n            \"DisableAutoSave\": \"{{server.build.env.SAVE_DISABLE}}\",\r\n            \"SaveName\": \"{{server.build.env.SAVE_NAME}}\",\r\n            \"ServerPassword\": \"{{server.build.env.SUBNAUTICA_PASSWORD}}\",\r\n            \"AdminPassword\": \"{{server.build.env.SUBNAUTICA_ADMIN_PASSWORD}}\",\r\n            \"GameMode\": \"{{server.build.env.SERVER_MODE}}\",\r\n            \"AutoPortForward\": \"{{server.build.env.PORTFORWARD_ENABLE}}\",\r\n            \"SerializerMode\": \"{{server.build.env.SERIALIZER_MODE}}\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"Server started\"\r\n}",
@@ -162,7 +162,7 @@
         },
         {
             "name": "Extra Flags",
-            "description": "Extra flags for steamcmd download. Do not edit",
+            "description": "Extra flags for steamcmd download. Advanced users only.",
             "env_variable": "EXTRA_FLAGS",
             "default_value": "",
             "user_viewable": false,
