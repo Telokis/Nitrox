@@ -2,7 +2,9 @@
 
 dir=$(dirname $(realpath $0))
 
-source "$dir/config.sh";
+if [ -f "$dir/config.sh" ]; then
+	source "$dir/config.sh";
+fi
 
 STEAM_DIR=${STEAM_DIR:-"/home/deck/.local/share/Steam"}
 NITROX_VERSION=${NITROX_VERSION:-"telo-1"}
