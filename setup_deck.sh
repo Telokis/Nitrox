@@ -17,7 +17,7 @@ PATCH_PATH="$STEAM_DIR/steamapps/common/Subnautica/Subnautica_Data/Managed/Assem
 SAVED_PATCH_PATH="$NITROX_DIR/Assembly-CSharp.dll"
 
 
-# install Subnautica legacy build
+# install Subnautica
 check_game() {
     printf "1) checking subnautica..."
     if [ -d "$STEAM_DIR/steamapps/common/Subnautica" ]; then
@@ -134,8 +134,6 @@ setup() {
 		printf "  \x1b[34mb)\x1b[0m right click on 'Subnautica' in your library\n"
 		printf "  \x1b[34mc)\x1b[0m click on 'Properties'\n"
 		printf "  \x1b[34md)\x1b[0m in 'Set Launch Options', type: -nitrox C:\Nitrox\\\\\n"
-		printf "  \x1b[34me)\x1b[0m open the 'Betas' tab\n"
-		printf "  \x1b[34mg)\x1b[0m on the dropdown, select 'legacy - Public legacy builds'\n\n"
 	else
 		printf "\x1b[32mskipped\x1b[0m\n"
 	fi
