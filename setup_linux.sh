@@ -63,8 +63,12 @@ check_nitrox() {
 		if [[ -d "$NITROX_DIR" ]] && [[ "$FORCE" != "1" && "$FORCE" != "true" ]]; then
 			printf " \x1b[32minstalled\x1b[0m\n"
 			return 0
+		elif [[ "$FORCE" == "1" || "$FORCE" == "true" ]]; then
+			printf " \x1b[33mforced install\x1b[0m\n"
+		else
+    	printf " \x1b[31mnot found\x1b[0m\n"
 		fi
-    printf " \x1b[31mnot found\x1b[0m\n"
+
 
 	version="$1"
 	if [ -z "$version" ]; then
