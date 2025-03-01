@@ -19,4 +19,6 @@ echo -e "\nCopying files to output dir..."
 cp -r "Nitrox.Launcher/bin/Release/net9.0/win-x64/publish" "$OUT_DIR"
 cp -r "Nitrox.Launcher/bin/Release/net9.0/win-x64/lib" "$OUT_DIR/lib"
 
+cp "NitroxServer-Subnautica/bin/Release/net9.0/win-x64/publish/NitroxServer-Subnautica.deps.json" "$OUT_DIR/"
+
 echo -e "\nEverything is done!"

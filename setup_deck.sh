@@ -7,7 +7,7 @@ if [ -f "$dir/config.sh" ]; then
 fi
 
 STEAM_DIR=${STEAM_DIR:-"/home/deck/.local/share/Steam"}
-NITROX_VERSION=${NITROX_VERSION:-"telo-1"}
+NITROX_VERSION=${NITROX_VERSION:-"latest"}
 
 SUBNAUTICA_ID="264710"
 STEAM_PREFIX="$STEAM_DIR/steamapps/compatdata/$SUBNAUTICA_ID/pfx"
@@ -32,11 +32,28 @@ check_game() {
 # return nitrox download url from version number
 nitrox_dl_url() {
 	version="$1"
-	if [ -z "$version" ]; then
-		version="$NITROX_VERSION"
+
+	## get release info and download links
+	GITHUB_PACKAGE="Telokis/Nitrox"
+	VERSION=${NITROX_VERSION}
+	MATCH="Nitrox"
+
+	LATEST_JSON=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases/latest")
+	RELEASES=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases")
+
+	if [ -z "${VERSION}" ] || [ "${VERSION}" == "latest" ]; then
+			DOWNLOAD_URL=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url | grep -i ${MATCH})
+	else
+			VERSION_CHECK=$(echo ${RELEASES} | jq -r --arg VERSION "${VERSION}" '.[] | select(.tag_name==$VERSION) | .tag_name')
+			if [ "${VERSION}" == "${VERSION_CHECK}" ]; then
+					DOWNLOAD_URL=$(echo ${RELEASES} | jq -r --arg VERSION "${VERSION}" '.[] | select(.tag_name==$VERSION) | .assets[].browser_download_url' | grep -i ${MATCH})
+			else
+					echo -e "defaulting to latest release"
+					DOWNLOAD_URL=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url)
+			fi
 	fi
 
-	echo "https://github.com/Telokis/Nitrox/releases/download/$version/Nitrox_master.zip"
+	echo $DOWNLOAD_URL
 	return 0
 }
 
