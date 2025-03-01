@@ -8,7 +8,6 @@ echo "Bundling Nitrox Launcher to $OUT_DIR"
 
 echo "Cleaning output dir"
 rm -rf "$OUT_DIR"
-mkdir -p "$OUT_DIR"
 
 dotnet clean
 
