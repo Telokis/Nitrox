@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Notes:
+# Install Protontricks on Steam Deck
+# Launch the NitroxLauncher from Steam
+# It should complain about missing runtime
+# Click on the link and download the runtime
+# Open it (it should open with Protontricks by default)
+# Select the NitrocLauncher in the list
+# Confirm installation
+# Launch NitroxLauncher again, it should work
+
 dir=$(dirname $(realpath $0))
 
 if [ -f "$dir/config.sh" ]; then
@@ -207,37 +217,7 @@ setup() {
 
 	printf "\n\n"
 	printf "> It was a long ride, but you're done ! Congratulations !\n\n"
-	printf "To launch the nitrox server, launch NitroxLauncher from Steam, go to Server, and click on 'Start Server'\n";
-	printf "To launch Subnautica with the multiplayer mod enabled, run './install.sh patch', then launch Subnautica from Steam\n";
-	exit 0
-}
-
-patch() {
-	printf "[ config ]\n"
-	log_config
-	printf "[ run ]\n"
-	check_game
-	check_nitrox "$NITROX_VERSION"
-
-	# ensure saved patch exists
-	printf "1) checking patch..."
-	if [ ! -f "$SAVED_PATCH_PATH" ]; then
-		printf " \x1b[31m/!\\\\\x1b[0m patch not found, please run './install.sh setup' first\n"
-		exit 1
-	fi
-	printf " \x1b[32mfound\x1b[0m\n"
-
-	# copy saved patch to game
-	printf "2) copying patch..."
-	cp -r "$SAVED_PATCH_PATH" "$PATCH_PATH"
-	if [ $? -ne 0 ]; then
-		printf " \x1b[31mfailed\x1b[0m\n"
-		exit 1
-	fi
-	printf " \x1b[32mcopied\x1b[0m\n"
-
-	printf "\n\n"
-	printf "You can now launch Subnautica from Steam, and enjoy the multiplayer mod !\n"
+	printf "Launch NitroxLauncher from Steam and enjoy your multiplayer session!\n";
 	exit 0
 }
 
@@ -245,11 +225,4 @@ echo "- Nitrox setup script for Linux -"
 echo "- Modified by Telokis -"
 echo "- Original by xdrm-io -"
 
-if [ "$1" = "patch" ]; then
-	patch
-elif [ "$1" = "setup" ]; then
-	setup
-else
-	printf "Usage: ./install.sh [patch|setup]\n"
-	exit 1
-fi
+setup
